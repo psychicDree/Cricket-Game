@@ -5,16 +5,22 @@ using UnityEngine.UI;
 
 public class StartPanel : BasePanel
 {
-    private Button _loginButton;
+    private Button _startButton;
     public override void OnEnter()
     {
-        _loginButton = GameObject.Find("LoginButton").GetComponent<Button>();
-        _loginButton.onClick.AddListener(OnLoginClick);
+        _startButton = GameObject.Find("StartButton").GetComponent<Button>();
+        _startButton.onClick.AddListener(OnStartClick);
 
     }
 
-    private void OnLoginClick()
+    public override void OnExit()
     {
-        uiManager.PushPanel(UIPanelType.Login);
+        gameObject.SetActive(false);
+    }
+
+    private void OnStartClick()
+    {
+        GameFacade.Instance.SetGameData(5,6,5,5,60);
+        uiManager.PushPanel(UIPanelType.Bowler);
     }
 }

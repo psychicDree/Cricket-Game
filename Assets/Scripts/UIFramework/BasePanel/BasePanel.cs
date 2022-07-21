@@ -4,6 +4,13 @@ using System.Collections;
 public class BasePanel : MonoBehaviour
 {
 
+    protected GameFacade facade;
+
+    public GameFacade _facade
+    {
+        set { facade = value; }
+    }
+    
     protected UIManager uiManager;
 
     public UIManager UIManager
@@ -12,7 +19,6 @@ public class BasePanel : MonoBehaviour
     }
     public virtual void OnEnter()
     {
-
     }
 
     public virtual void OnPause()

@@ -11,5 +11,6 @@ public class BaseManager : MonoBehaviour
       this.facade = facade;
    }
    public virtual void OnInit(){}
+   public virtual void OnUpdate(){}
    public virtual void OnDestroy(){}
 }

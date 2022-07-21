@@ -9,6 +9,7 @@ public class GameFacade : MonoBehaviour
     private CameraManager _cameraManager;
     private PlayerManager _playerManager;
     private UIManager _uiManager;
+    private GameplayManager _gameplayManager;
     
     private static GameFacade _instance;
     public static GameFacade Instance => _instance;
@@ -21,7 +22,6 @@ public class GameFacade : MonoBehaviour
         }
         _instance = this;
     }
-
     private void Start()
     {
         OnInitManager();
@@ -33,13 +33,23 @@ public class GameFacade : MonoBehaviour
         _cameraManager = new CameraManager(this);
         _playerManager = new PlayerManager(this);
         _uiManager = new UIManager(this);
+        _gameplayManager = new GameplayManager(this);
         
         _audioManager.OnInit();
         _cameraManager.OnInit();
         _playerManager.OnInit();
         _uiManager.OnInit();
+        _gameplayManager.OnInit();
     }
 
+    private void Update()
+    {
+        _audioManager.OnUpdate();
+        _cameraManager.OnUpdate();
+        _playerManager.OnUpdate();
+        _uiManager.OnUpdate();
+        _gameplayManager.OnUpdate();
+    }
     private void OnDestroy()
     {
         OnDestroyManager();
@@ -50,5 +60,16 @@ public class GameFacade : MonoBehaviour
         _cameraManager.OnDestroy();
         _playerManager.OnDestroy();
         _uiManager.OnDestroy();
+        _gameplayManager.OnDestroy();
+    }
+
+    public void SetGameData(int over, int ballPerOver, int totalBatsmen, int totalBowler, int targetScore)
+    {
+        _gameplayManager.SetGameData(over, ballPerOver, totalBatsmen, totalBowler, targetScore);
+    }
+
+    public GameData GetGameData()
+    {
+        return _gameplayManager.GetGameData();
     }
 }

@@ -4,11 +4,11 @@
   {"panelTypeString":"Start",
     "path":"UIPanel/StartPanel"},
 
-  {"panelTypeString":"Login",
-    "path":"UIPanel/LoginPanel"},
+  {"panelTypeString":"Bowler",
+    "path":"UIPanel/BowlerPanel"},
   
-  {"panelTypeString":"Register",
-  "path":"UIPanel/RegisterPanel"}, 
+  {"panelTypeString":"Delivery",
+  "path":"UIPanel/DeliveryPanel"}, 
   
   {"panelTypeString":"Message",
   "path":"UIPanel/MessagePanel"}

@@ -10,7 +10,10 @@ public class CameraManager : BaseManager
     {
         //base.OnInit();
     }
-
+    public override void OnUpdate()
+    {
+        //base.OnInit();
+    }
     public override void OnDestroy()
     {
         //base.OnDestroy();
