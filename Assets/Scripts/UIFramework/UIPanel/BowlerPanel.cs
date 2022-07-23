@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class BowlerPanel : BasePanel
 {
@@ -22,9 +23,10 @@ public class BowlerPanel : BasePanel
             b.SetBowlerText($"B-{i}");
             b.EnableButton();
             b.OnItemClicked(i, OnBowlerSelected);
+            b.gameObject.GetComponent<Image>().color =
+                Color.Lerp(Color.blue, Color.grey, Random.Range(0f, 1.0f));
         }
     }
-
     private Bowler GetBowlerByIndex(int index)
     {
         return bowlerHolder.GetChild(index).GetComponent<Bowler>();
@@ -36,5 +38,11 @@ public class BowlerPanel : BasePanel
         GameFacade.Instance.GetGameData().currentBowler = selectedIndex;
         foreach (var item in bowlerHolder.GetComponentsInChildren<Bowler>()) item.DisableButton();
         uiManager.PushPanel(UIPanelType.Delivery);
+    }
+
+    public override void OnPause()
+    {
+        gameObject.SetActive(false);
+        base.OnPause();
     }
 }

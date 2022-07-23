@@ -4,6 +4,7 @@
     Bowler,
     Message,
     Delivery,
+    Location,
     Game,
-    
+    Result
 }

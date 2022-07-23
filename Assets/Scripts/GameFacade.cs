@@ -2,6 +2,8 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class GameFacade : MonoBehaviour
 {
@@ -9,10 +11,11 @@ public class GameFacade : MonoBehaviour
     private CameraManager _cameraManager;
     private PlayerManager _playerManager;
     private UIManager _uiManager;
-    private GameplayManager _gameplayManager;
     
     private static GameFacade _instance;
     public static GameFacade Instance => _instance;
+    private Vector3 _BallPosition;
+    private Button restart;
     private void Awake()
     {
         if (_instance != null)
@@ -33,13 +36,15 @@ public class GameFacade : MonoBehaviour
         _cameraManager = new CameraManager(this);
         _playerManager = new PlayerManager(this);
         _uiManager = new UIManager(this);
-        _gameplayManager = new GameplayManager(this);
         
         _audioManager.OnInit();
         _cameraManager.OnInit();
         _playerManager.OnInit();
         _uiManager.OnInit();
-        _gameplayManager.OnInit();
+        GameObject.Find("RESTART").GetComponent<Button>().onClick.AddListener(() =>
+        {
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        });
     }
 
     private void Update()
@@ -48,7 +53,6 @@ public class GameFacade : MonoBehaviour
         _cameraManager.OnUpdate();
         _playerManager.OnUpdate();
         _uiManager.OnUpdate();
-        _gameplayManager.OnUpdate();
     }
     private void OnDestroy()
     {
@@ -60,16 +64,39 @@ public class GameFacade : MonoBehaviour
         _cameraManager.OnDestroy();
         _playerManager.OnDestroy();
         _uiManager.OnDestroy();
-        _gameplayManager.OnDestroy();
     }
 
-    public void SetGameData(int over, int ballPerOver, int totalBatsmen, int totalBowler, int targetScore)
+    public void SetGameData(int over, int totalBalls, int totalBatsmen, int totalBowler, int targetScore)
     {
-        _gameplayManager.SetGameData(over, ballPerOver, totalBatsmen, totalBowler, targetScore);
+        _playerManager.SetGameData(over, totalBalls, totalBatsmen, totalBowler, targetScore);
     }
 
     public GameData GetGameData()
     {
-        return _gameplayManager.GetGameData();
+        return _playerManager.GetGameData();
+    }
+    public int OnBatsmenHit(int run, int hitChance)
+    {
+        return _playerManager.OnBatsmenHit(run, hitChance);
+    }
+
+    public void SetBallPosition(Vector3 hitInfoPoint)
+    {
+        _BallPosition = hitInfoPoint;
+    }
+
+    public Vector3 GetBallPosition()
+    {
+        return _BallPosition;
+    }
+
+    public void OnNextBall()
+    {
+        _uiManager.PushPanelSync(UIPanelType.Location);
+    }
+
+    public string GetResultText()
+    {
+        return GetGameData().TargetScore < GetGameData().TotalScore ? "Batsmen win": "Bowlers Win" ;
     }
 }

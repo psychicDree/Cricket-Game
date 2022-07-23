@@ -11,7 +11,16 @@
   "path":"UIPanel/DeliveryPanel"}, 
   
   {"panelTypeString":"Message",
-  "path":"UIPanel/MessagePanel"}
-
+  "path":"UIPanel/MessagePanel"},
+ 
+  {"panelTypeString":"Game",
+    "path":"UIPanel/GamePanel"},
+  
+  {"panelTypeString":"Location",
+    "path":"UIPanel/BowlLocationPanel"},
+  
+  {"panelTypeString":"Result",
+    "path":"UIPanel/ResultPanel"}
+  
 ]
 }

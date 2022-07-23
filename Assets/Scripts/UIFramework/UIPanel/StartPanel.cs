@@ -13,14 +13,14 @@ public class StartPanel : BasePanel
 
     }
 
-    public override void OnExit()
+    public override void OnPause()
     {
         gameObject.SetActive(false);
     }
 
     private void OnStartClick()
     {
-        GameFacade.Instance.SetGameData(5,6,5,5,60);
+        GameFacade.Instance.SetGameData(5, 5*6,5,5,60);
         uiManager.PushPanel(UIPanelType.Bowler);
     }
 }

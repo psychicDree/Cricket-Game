@@ -24,16 +24,14 @@ public class DeliveryPanel : BasePanel
     {
         GameFacade.Instance.GetGameData().currentDeliveryType = DeliveryType.Spin;
         uiManager.ShowMessage($"Bowler Choose {DeliveryType.Spin.ToString()}");
-        uiManager.PopPanel();
-        uiManager.PopPanel();
-        uiManager.PushPanelSync(UIPanelType.Game);
+        uiManager.PushPanelSync(UIPanelType.Location);
     }
 
     private void OnFastTypeClicked()
     {
         GameFacade.Instance.GetGameData().currentDeliveryType = DeliveryType.Fast;
         uiManager.ShowMessage($"Bowler Choose {DeliveryType.Fast.ToString()}");
-
+        uiManager.PushPanelSync(UIPanelType.Location);
     }
 
     private void SetTypeText()
@@ -48,6 +46,7 @@ public class DeliveryPanel : BasePanel
 
     public override void OnPause()
     {
+        gameObject.SetActive(false);
         base.OnPause();
     }
 
